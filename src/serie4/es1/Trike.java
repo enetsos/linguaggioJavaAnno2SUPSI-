@@ -1,4 +1,4 @@
-
+package serie4.es1;
 
 public class Trike extends Vehicle {
 

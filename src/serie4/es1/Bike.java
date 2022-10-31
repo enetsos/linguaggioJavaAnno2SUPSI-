@@ -1,4 +1,4 @@
-
+package serie4.es1;
 
 public abstract class Bike extends Vehicle {
 

@@ -1,5 +1,6 @@
+package serie4.es3;
 
-
+import java.lang.reflect.*;
 class Coordinate {
     private float lat;
     private float lon;
@@ -48,6 +49,23 @@ public class DocumentationHelper {
 
     private static void toMarkdown(final Class<?> theClass) {
         // FIXME to implement
+        System.out.println("#" + theClass.getName());
+
+        System.out.println("\n##Constructor");
+        for (Constructor<?> constructor : theClass.getDeclaredConstructors()) {
+            System.out.println("###" + constructor);
+        }
+
+        System.out.println("\n##Methods");
+        for (Method method : theClass.getDeclaredMethods()) {
+            System.out.println("###" + method.toGenericString());
+        }
+
+        System.out.println("\n##Parameters");
+        for (Field field : theClass.getDeclaredFields()) {
+            System.out.println("###" + field);
+        }
+
     }
 
     public static void main(String[] args) {
