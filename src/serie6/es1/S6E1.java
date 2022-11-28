@@ -1,14 +1,11 @@
-package assignment06.assignments.es1;
+package serie6.es1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import assignment06.assignments.es1.person.Person;
-import assignment06.assignments.es1.person.PersonFactory;
-import assignment06.assignments.es1.person.Worker;
-import assignment06.assignments.es1.person.Student;
+import serie6.es1.person.*;
 
 public class S6E1 {
 
@@ -25,20 +22,31 @@ public class S6E1 {
 	public static void main(String[] args) {
 		List<Person> population = init(100);
 
+//		private static List<Person> search(List<Person> population, EvaluateOperation op){
+//			List<Person> secondaryWorker = new ArrayList<>();
+//			for(Person p : population){
+//				if(op.evaluate){
+//					secondaryWorker.add(p);
+//				}
+//			}
+//			return secondaryWorker;
+//		}
+
+
+
 		// Categorize population by surname
 		final CategorizeOperation<String> categorizeBySurnameOperation = new CategorizeOperation<String>() {
-
-			@Override
-			public String getCategory(Person p) {
-				return p.getSurname();
-			}
-		};
-		Map<String, List<Person>> categorizedBySurname = new HashMap<>();
-		for (Person person : population) {
-			String category = categorizeBySurnameOperation.getCategory(person);
-			if (categorizedBySurname.containsKey(category) == false)
-				categorizedBySurname.put(category, new ArrayList<>());
-			categorizedBySurname.get(category).add(person);
+				@Override
+				public String getCategory(Person p) {
+					return p.getSurname();
+				}
+			};
+			Map<String, List<Person>> categorizedBySurname = new HashMap<>();
+			for (Person person : population) {
+				String category = categorizeBySurnameOperation.getCategory(person);
+				if (categorizedBySurname.containsKey(category) == false)
+					categorizedBySurname.put(category, new ArrayList<>());
+				categorizedBySurname.get(category).add(person);
 		}
 		
 		// Categorize population by Occupation
@@ -78,7 +86,6 @@ public class S6E1 {
 
 		// Search for people working in secondary sector having salary between 50k - 80k 
 		final EvaluateOperation evaluateSecondarySalary50k_80kOperation = new EvaluateOperation() {
-
 			@Override
 			public boolean evaluate(Person p) {
 				if (!(p instanceof Worker))

@@ -1,5 +1,6 @@
+package serie5.es1;
 
-
-public interface Extract {
+public @interface Extract {
 	// FIXME to implement
+    String value() default "";
 }

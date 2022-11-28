@@ -1,4 +1,4 @@
-package assignment06.assignments.es1.person;
+package serie6.es1.person;
 
 import java.util.Random;
 

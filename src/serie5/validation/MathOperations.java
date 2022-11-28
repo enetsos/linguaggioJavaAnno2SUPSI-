@@ -1,5 +1,5 @@
-
-
+package serie5.validation;
+/*
 public class MathOperations {
 
     @Validate(
@@ -27,3 +27,4 @@ public class MathOperations {
         return Math.min(a, b);
     }
 }
+*/

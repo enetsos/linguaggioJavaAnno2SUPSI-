@@ -1,6 +1,6 @@
+package serie5.es1;
 
-
-import java.lang.reflect.Field;
+import java.lang.reflect.*;
 import java.util.HashSet;
 
 public class Main {
@@ -36,6 +36,13 @@ public class Main {
 
     private static String generateImplementation(Class<?> clazz) throws Exception {
         // FIXME to implement
+        Field[] fields = extractFields(clazz);
+        for(Field field : fields){
+            if(field.isAnnotationPresent(Extract.class)){
+                Extract extract = field.getAnnotation(Extract.class);
+                System.out.println(extract.value());
+            }
+        }
         return "";
     }
 

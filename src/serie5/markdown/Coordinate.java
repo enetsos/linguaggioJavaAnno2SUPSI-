@@ -1,4 +1,4 @@
-
+package serie5.markdown;
 
 @MarkdownDoc
 class Coordinate implements Comparable<Coordinate> {

@@ -1,5 +1,5 @@
+package serie5.validation;
 
-
-public interface ValidationItem {
+public @interface ValidationItem {
     // FIXME to implement
 }

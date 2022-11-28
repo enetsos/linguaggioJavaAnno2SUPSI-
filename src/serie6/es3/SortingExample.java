@@ -1,4 +1,4 @@
-package assignment06.assignments.es3;
+package serie6.es3;
 
 import java.util.ArrayList;
 import java.util.Comparator;
