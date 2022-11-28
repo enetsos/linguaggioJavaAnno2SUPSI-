@@ -1,4 +1,4 @@
-package serie6.es1;
+package assignment06.assignments.es1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
