@@ -1,0 +1,153 @@
+import java.util.ArrayList;
+import java.util.List;
+
+abstract class Media {
+    private final String title;
+
+    public Media(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public abstract void play();
+}
+
+abstract class DigitalMedia extends Media {
+    final private int numTracks;
+    private int currentTrack;
+
+    public DigitalMedia(String title, int numTracks) {
+        super(title);
+        this.numTracks = numTracks;
+    }
+
+    public void play() {
+        System.out.println("Playing track " + currentTrack + " of album " + getTitle());
+    }
+
+    public void setTrack(int track) {
+        currentTrack = track;
+    }
+
+    public int getNumTracks() {
+        return numTracks;
+    }
+}
+
+class CD extends DigitalMedia {
+    CD(String title, int numTracks) {
+        super(title, numTracks);
+    }
+}
+
+class SuperAudioCD extends DigitalMedia {
+    SuperAudioCD(String title, int numTracks) {
+        super(title, numTracks);
+    }
+}
+
+abstract class Vinyl extends Media {
+    private enum Side {A, B}
+
+    private final int rpm;
+    private Side currentSide = Side.A;
+
+    public Vinyl(String title, int rpm) {
+        super(title);
+        this.rpm = rpm;
+    }
+
+    public void play() {
+        System.out.println("Playing side " + currentSide + " of vinyl " + getTitle() + " at " + rpm + " RPM");
+    }
+
+    public void flipSide() {
+        if (Side.A.equals(currentSide))
+            currentSide = Side.B;
+        else
+            currentSide = Side.A;
+    }
+}
+
+class Vinyl33 extends Vinyl {
+    Vinyl33(String title) {
+        super(title, 33);
+    }
+}
+
+class Vinyl45 extends Vinyl {
+    Vinyl45(String title) {
+        super(title, 45);
+    }
+}
+
+abstract class JukeBox {
+    public abstract void playAll();
+}
+
+class DigitalJukeBox extends JukeBox {
+    private final List digitalMedias;
+
+    DigitalJukeBox(List digitalMedias) {
+        this.digitalMedias = digitalMedias;
+    }
+
+    public void playAll() {
+        for (Object currentObject : digitalMedias) {
+            DigitalMedia currentMedia = (DigitalMedia) currentObject;
+            final int numTracks = currentMedia.getNumTracks();
+            for (int currentTrack = 0; currentTrack < numTracks; currentTrack++) {
+                currentMedia.setTrack(currentTrack);
+                currentMedia.play();
+            }
+        }
+    }
+}
+
+class AnalogJukeBox extends JukeBox {
+    private final List vinyls;
+
+    public AnalogJukeBox(List vinyls) {
+        this.vinyls = vinyls;
+    }
+
+    public void playAll() {
+        for (Object currentObject : vinyls) {
+            Vinyl currentVinyl = (Vinyl) currentObject;
+            currentVinyl.play();
+            currentVinyl.flipSide();
+            currentVinyl.play();
+        }
+    }
+}
+
+public class JukeBoxExample {
+    public static void main(String[] args) {
+        List cds = new ArrayList();
+        cds.add(new CD("Californication", 15));
+        cds.add(new CD("Ten", 11));
+        DigitalJukeBox cdJukeBox = new DigitalJukeBox(cds);
+        cdJukeBox.playAll();
+
+        List saCds = new ArrayList();
+        saCds.add(new SuperAudioCD("Random Access Memory", 13));
+        saCds.add(new SuperAudioCD("The Resistance", 11));
+        DigitalJukeBox saCdJukebox = new DigitalJukeBox(saCds);
+        saCdJukebox.playAll();
+
+        List vinyls33 = new ArrayList();
+        vinyls33.add(new Vinyl33("The Dark Side of the Moon"));
+        vinyls33.add(new Vinyl33("Speak and Spell"));
+        AnalogJukeBox vinyl33Jukebox = new AnalogJukeBox(vinyls33);
+        vinyl33Jukebox.playAll();
+
+        List vinyls45 = new ArrayList();
+        vinyls45.add(new Vinyl45("La Isla Bonita"));
+        vinyls45.add(new Vinyl45("Billie Jean"));
+        AnalogJukeBox vinyl45Jukebox = new AnalogJukeBox(vinyls45);
+        vinyl45Jukebox.playAll();
+    }
+}
