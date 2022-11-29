@@ -1,4 +1,4 @@
-package assignment07.assignments.es1.person;
+package serie7.es1.person;
 
 public class Person {
 	public enum Gender {F, M}

@@ -1,9 +1,9 @@
-package assignment07.assignments.es1.person;
+package serie7.es1.person;
 
 import java.util.Random;
 
-import assignment07.assignments.es1.person.Student.EducationalStage;
-import assignment07.assignments.es1.person.Worker.WorkSectorType;
+import serie7.es1.person.Student.EducationalStage;
+import serie7.es1.person.Worker.WorkSectorType;
 
 public class PersonFactory {
 

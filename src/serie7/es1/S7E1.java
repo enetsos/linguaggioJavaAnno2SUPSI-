@@ -1,15 +1,17 @@
-package assignment07.assignments.es1;
+package serie7.es1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import assignment07.assignments.es1.person.PersonFactory;
-import assignment07.assignments.es1.person.Person;
-import assignment07.assignments.es1.person.Student;
-import assignment07.assignments.es1.person.Worker;
+import serie7.es1.person.PersonFactory;
+import serie7.es1.person.Person;
+import serie7.es1.person.Student;
+import serie7.es1.person.Worker;
 
 public class S7E1 {
 
@@ -75,24 +77,23 @@ public class S7E1 {
 
     // FIXME refactor by replacing method with filter stream operation 
 	private static List<Person> search(List<Person> population, EvaluateOperation eval) {
-		List<Person> secondaryWorkers = new ArrayList<>();
-		for (Person p : population) {
-			if (eval.evaluate(p))
-				secondaryWorkers.add(p);
-		}
-		return secondaryWorkers;
+		return population.stream()
+				.filter(person -> eval.evaluate(person))
+				.collect(Collectors.toList());
 	}
 
 	// FIXME refactor by replacing with collect / groupingBy stream operation
 	private static Map<Integer, List<Person>> categorizeInteger(List<Person> population,
 			CategorizeOperation<Integer> integerCategorizationOperation) {
+
 		Map<Integer, List<Person>> categorizedByAgeDecades = new HashMap<>();
-		for (Person p : population) {
-			Integer category = integerCategorizationOperation.getCategory(p);
-			if (categorizedByAgeDecades.containsKey(category) == false)
-				categorizedByAgeDecades.put(category, new ArrayList<>());
-			categorizedByAgeDecades.get(category).add(p);
-		}
+//
+//		for (Person p : population) {
+//			Integer category = integerCategorizationOperation.getCategory(p);
+//			if (categorizedByAgeDecades.containsKey(category) == false)
+//				categorizedByAgeDecades.put(category, new ArrayList<>());
+//			categorizedByAgeDecades.get(category).add(p);
+//		}
 		return categorizedByAgeDecades;
 	}
 
@@ -111,15 +112,22 @@ public class S7E1 {
 	
 	// Generate random dataset
 	private static List<Person> init(int populationSize) {
-		List<Person> population = new ArrayList<>();
-		for (int i = 0; i < populationSize; i++)
-			population.add(PersonFactory.createRandomPerson());
-		
-		// Print all persons
-		for (Person p : population)
-			System.out.println(p);
 
-		return population;
+//		List<Person> population = new ArrayList<>();
+//		for (int i = 0; i < populationSize; i++)
+//			population.add(PersonFactory.createRandomPerson());
+//
+//		// Print all persons
+//		for (Person p : population)
+//			System.out.println(p);
+//
+//		return population;
+
+		return Stream
+				.generate(PersonFactory::createRandomPerson)
+				.peek(System.out::println)
+				.limit(populationSize)
+				.collect(Collectors.toList());
 	}
 	
 	private static void printCategorizedString(String title, Map<String, List<Person>> categorized) {
