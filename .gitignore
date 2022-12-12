@@ -24,3 +24,6 @@ hs_err_pid*
 
 *./out/*
 /out/
+/src/database/h2/
+/src/database/h2/
+/src/database/h2/
