@@ -1,0 +1,19 @@
+<persistence 
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" 
+	version="2.1">
+	<persistence-unit name="ch.supsi.persistence.example">
+		<!-- TODO add all entity classes with fully qualified name (package.ClassName) -->
+		<class>ch.supsi.oop.hibernate.example.ClassName</class>
+		<properties>
+			<property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+			<!-- FIXME Specify database location  -->
+			<property name="hibernate.connection.url" value="jdbc:h2:~/h2-dbs/s10-hibernate-books;create=true"/>
+			<property name="hibernate.connection.username" value="sa"/>
+			<property name="hibernate.connection.password" value=""/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
