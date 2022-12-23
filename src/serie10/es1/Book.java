@@ -1,5 +1,8 @@
-package es1;
+package serie10.es1;
 
+import javax.persistence.*;
+
+@Entity
 public class Book {
 
     private Long id;
@@ -9,6 +12,8 @@ public class Book {
     private String title;
 
     private String publisher;
+
+    private Author author;
 
     public Long getId() {
         return id;
@@ -42,8 +47,12 @@ public class Book {
         this.publisher = publisher;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Book [id=%s, year=%s, title=%s, publisher=%s]", id, year, title, publisher);
+    public Author getAuthor() {
+        return author;
     }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
 }

@@ -1,5 +1,10 @@
-package es1;
+package serie10.es1;
 
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
 public class Author {
 
     private Long id;
@@ -9,6 +14,8 @@ public class Author {
     private String lastName;
 
     private int birthYear;
+
+    private List<Book> books;
 
     public Long getId() {
         return id;
@@ -41,9 +48,13 @@ public class Author {
     public void setBirthYear(int birthYear) {
         this.birthYear = birthYear;
     }
-
-    @Override
-    public String toString() {
-        return String.format("Author [id=%s, firstName=%s, lastName=%s, birthYear=%s]", id, firstName, lastName, birthYear);
+    
+    public List<Book> getBooks() {
+        return books;
     }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
 }

@@ -1,69 +1,70 @@
-package es1;
+package serie10.es1;
+
+import java.util.List;
+
+import javax.persistence.*;
 
 public class Main {
     
+    final static String PERSISTENCE_UNIT_NAME = "ch.walter.serie10";
+    final static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    final static EntityManager entityManager = factory.createEntityManager();
+    
     public static void main(String[] args) {
-        insertAuthor("Stephen", "King", 1947);
-        insertAuthor("Herman", "Melville", 1819);
-        insertAuthor("Hermann", "Hesse", 1877);
-        
-        insertBook("Carrie", 1974, "Doubleday");
-        insertBook("Shining", 1977, "Doubleday");
-        insertBook("IT", 1986, "Viking");
-        insertBook("Moby dick", 1851, "Richard Bentley");
-        insertBook("Siddhartha", 1922, "Suhrkamp Verlag");
 
-        System.out.println("author(s)");
-        for (int i = 1; i < 5; i++)
-            System.out.println(getAuthorById(Long.valueOf(i)));
+        Author author = new Author();
+        author.setFirstName("John");
+        author.setLastName("Doe");
+        author.setBirthYear(1970);
 
-        System.out.println();
-        System.out.println("book(s)");
-        for (int i = 1; i < 5; i++)
-            System.out.println(getBookById(Long.valueOf(i)));
+        Book book = new Book();
+        book.setTitle("My first book");
+        book.setPublisher("My publisher");
+        book.setYear(2015);
+        book.setAuthor(author);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(author);
+        entityManager.persist(book);
+        entityManager.getTransaction().commit();
+
+        entityManager.close();
+        factory.close();
     }
 
-    /**
-     * Add a new author to the database
-     * 
-     * @param firstName
-     * @param lastName
-     * @param birthYear
-     */
     private static Author insertAuthor(String firstName, String lastName, int birthYear) {
-        // FIXME to implement
-        return null;
+        entityManager.getTransaction().begin();
+        final Author author = new Author();
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
+        author.setBirthYear(birthYear);
+
+        entityManager.persist(author);
+        entityManager.getTransaction().commit();
+
+        return author;
     }
 
-    /**
-     * Add a new book to the database 
-     * 
-     * @param title
-     * @param year
-     * @param publisher
-     */
-    private static Book insertBook(String title, int year, String publisher) {
-        // FIXME to implement
-        return null;
-    }
+    private static Book insertBook(String title, int year, String publisher, final Author author) {
+        entityManager.getTransaction().begin();
+        final Book book = new Book();
+        book.setTitle(title);
+        book.setYear(year);
+        book.setPublisher(publisher);
+        book.setAuthor(author);
 
-    /**
-     * Returns Author for given id
-     * @param id
-     * @return
-     */
+        entityManager.persist(book);
+        entityManager.getTransaction().commit();
+        return book;
+     }
+
     private static Author getAuthorById(final Long id) {
-        // FIXME to implement
-        return null;
+        return entityManager.find(Author.class, id);
     }
 
-    /**
-     * Returns Book for given id
-     * @param id
-     * @return
-     */
     private static Book getBookById(final Long id) {
-        // FIXME to implement
-        return null;
+        return entityManager.find(Book.class, id);
     }
+
+
 }
